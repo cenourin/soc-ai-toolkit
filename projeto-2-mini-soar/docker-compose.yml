@@ -1,0 +1,34 @@
+services:
+  api:
+    build: .
+    container_name: mini-soar-api
+    ports:
+      - "8002:8002"
+    environment:
+      - ABUSEIPDB_API_KEY=${ABUSEIPDB_API_KEY:-}
+      - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY:-}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL:-}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL:-}
+      - DB_PATH=/data/soar.db
+    volumes:
+      - soar_data:/data
+      - ./data:/srv/data:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  worker:
+    build: .
+    container_name: mini-soar-worker
+    command: ["python", "worker/loop.py"]
+    environment:
+      - API_URL=http://api:8002
+      - PLAYBOOK_INTERVAL_SECONDS=${PLAYBOOK_INTERVAL_SECONDS:-60}
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  soar_data:
