@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Segredos e dados locais
+.env
+*.db
+*.sqlite3
+
+# LaTeX
+*.aux
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+docs/*.log
+
+# SO / editores
+.DS_Store
+.vscode/
+.idea/
