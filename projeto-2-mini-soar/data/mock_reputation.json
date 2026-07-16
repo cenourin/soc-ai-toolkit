@@ -1,0 +1,27 @@
+{
+  "203.0.113.9": {
+    "malicious": true,
+    "score": 97,
+    "categories": ["ssh-bruteforce", "scanning"]
+  },
+  "198.51.100.77": {
+    "malicious": true,
+    "score": 88,
+    "categories": ["port-scan"]
+  },
+  "45.33.32.156": {
+    "malicious": true,
+    "score": 76,
+    "categories": ["c2-server"]
+  },
+  "44d88612fea8a8f36de82e1278abb02f": {
+    "malicious": true,
+    "score": 100,
+    "categories": ["eicar-test-file"]
+  },
+  "8.8.8.8": {
+    "malicious": false,
+    "score": 0,
+    "categories": []
+  }
+}
