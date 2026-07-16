@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    container_name: agente-triagem-logs-api
+    ports:
+      - "8001:8001"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - ANTHROPIC_MODEL=${ANTHROPIC_MODEL:-claude-sonnet-5}
+      - DB_PATH=/data/events.db
+    volumes:
+      - events_data:/data
+      - ./data:/srv/data:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  events_data:
